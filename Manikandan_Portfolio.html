@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Manikandan Chinnadurai — DevOps & SRE Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0f2342;
+    --navy-mid: #1a3a6b;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --accent-glow: rgba(37,99,235,0.12);
+    --green: #16a34a;
+    --green-light: #dcfce7;
+    --text: #0f172a;
+    --text-muted: #475569;
+    --text-faint: #94a3b8;
+    --border: #e2e8f0;
+    --surface: #f8fafc;
+    --white: #ffffff;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+    --radius: 10px;
+    --radius-lg: 16px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    color: var(--text);
+    background: var(--white);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 14px; font-weight: 500;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--text-muted);
+    font-size: 13px; font-weight: 500;
+    transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    background: var(--navy);
+    padding: 6rem 2rem 5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(37,99,235,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(37,99,235,0.18);
+    border: 1px solid rgba(37,99,235,0.4);
+    color: #93c5fd;
+    font-family: var(--mono); font-size: 12px;
+    padding: 4px 14px; border-radius: 999px;
+    margin-bottom: 1.5rem;
+  }
+  .hero-tag::before { content: '●'; font-size: 8px; color: #4ade80; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 600; color: #ffffff;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .hero h1 span { color: #60a5fa; }
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: #94a3b8; margin-bottom: 2rem; max-width: 560px; margin-left: auto; margin-right: auto;
+  }
+  .hero-metrics {
+    display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem;
+    margin: 2.5rem 0;
+  }
+  .hero-metric { text-align: center; }
+  .hero-metric .num {
+    font-family: var(--mono); font-size: 2rem; font-weight: 500; color: #60a5fa; display: block; line-height: 1;
+  }
+  .hero-metric .label { font-size: 12px; color: #64748b; margin-top: 4px; }
+  .hero-cta {
+    display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 22px; border-radius: var(--radius);
+    font-size: 14px; font-weight: 500; text-decoration: none;
+    transition: all 0.15s; cursor: pointer; border: none;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #1d4ed8; }
+  .btn-outline {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #e2e8f0;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.12); }
+
+  /* SECTIONS */
+  .section { padding: 5rem 2rem; max-width: 900px; margin: 0 auto; }
+  .section-label {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--accent); font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600; color: var(--text);
+    letter-spacing: -0.02em; margin-bottom: 0.75rem;
+  }
+  .section-divider { border: none; border-top: 1px solid var(--border); margin: 0 2rem; }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-top: 2.5rem; }
+  .about-text p { color: var(--text-muted); line-height: 1.8; margin-bottom: 1rem; }
+  .about-sidebar { display: flex; flex-direction: column; gap: 1rem; }
+  .info-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1rem 1.25rem;
+  }
+  .info-card .ic-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-faint); font-weight: 500; margin-bottom: 4px; }
+  .info-card .ic-value { font-size: 14px; color: var(--text); font-weight: 500; }
+  .info-card a { color: var(--accent); text-decoration: none; }
+
+  /* SKILLS */
+  .skills-section { background: var(--surface); }
+  .skills-section .section { padding: 5rem 2rem; }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
+  .skill-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 1.5rem;
+  }
+  .skill-card-icon {
+    width: 40px; height: 40px;
+    background: var(--accent-light); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 1rem;
+  }
+  .skill-card h3 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 0.75rem; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-family: var(--mono); font-size: 11px;
+    padding: 3px 10px; border-radius: 999px;
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text-muted); font-weight: 400;
+  }
+  .tag.blue { background: #dbeafe; border-color: #bfdbfe; color: #1e40af; }
+  .tag.green { background: #dcfce7; border-color: #bbf7d0; color: #15803d; }
+  .tag.amber { background: #fef3c7; border-color: #fde68a; color: #92400e; }
+  .tag.purple { background: #ede9fe; border-color: #ddd6fe; color: #6d28d9; }
+
+  /* EXPERIENCE */
+  .timeline { margin-top: 2.5rem; position: relative; }
+  .timeline::before {
+    content: ''; position: absolute; left: 18px; top: 8px; bottom: 0;
+    width: 2px; background: var(--border);
+  }
+  .tl-item { display: flex; gap: 1.5rem; margin-bottom: 2.5rem; position: relative; }
+  .tl-dot {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--white); border: 2px solid var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; z-index: 1;
+    font-size: 14px;
+  }
+  .tl-dot.grey { border-color: var(--border); }
+  .tl-content { flex: 1; padding-top: 4px; }
+  .tl-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 4px; }
+  .tl-company { font-size: 15px; font-weight: 600; color: var(--text); }
+  .tl-dates {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--text-faint); white-space: nowrap;
+  }
+  .tl-role { font-size: 13px; color: var(--accent); font-weight: 500; margin: 2px 0 10px; }
+  .tl-bullets { list-style: none; }
+  .tl-bullets li {
+    position: relative; padding-left: 1.1rem; color: var(--text-muted);
+    font-size: 13.5px; margin-bottom: 6px; line-height: 1.6;
+  }
+  .tl-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 11px; top: 3px; }
+  .tl-bullets strong { color: var(--text); font-weight: 600; }
+
+  /* METRICS */
+  .metrics-bar {
+    background: var(--navy); padding: 4rem 2rem;
+  }
+  .metrics-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 2rem; text-align: center; }
+  .m-num { font-family: var(--mono); font-size: 2.25rem; font-weight: 500; color: #60a5fa; line-height: 1; }
+  .m-label { font-size: 13px; color: #94a3b8; margin-top: 6px; }
+
+  /* TOOLS */
+  .tools-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2rem; }
+  .tool-chip {
+    display: flex; align-items: center; gap: 7px;
+    padding: 6px 14px; border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--white); font-size: 13px; color: var(--text);
+    font-weight: 500;
+  }
+  .tool-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  /* RESUME */
+  .resume-section { background: var(--surface); }
+  .resume-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin-top: 2rem; }
+  .resume-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 1.5rem;
+    display: flex; flex-direction: column; gap: 0.75rem;
+  }
+  .resume-card .rc-icon { font-size: 2rem; }
+  .resume-card h3 { font-size: 15px; font-weight: 600; color: var(--text); }
+  .resume-card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  .rc-badge {
+    align-self: flex-start;
+    font-family: var(--mono); font-size: 11px;
+    padding: 3px 10px; border-radius: 999px;
+    background: var(--green-light); color: #15803d;
+    border: 1px solid #bbf7d0;
+  }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+  .contact-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 1.5rem;
+    display: flex; align-items: center; gap: 1rem; text-decoration: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .contact-card:hover { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+  .contact-icon {
+    width: 44px; height: 44px; border-radius: var(--radius);
+    background: var(--accent-light); display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+  .contact-info .ci-label { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.07em; font-weight: 500; }
+  .contact-info .ci-value { font-size: 14px; font-weight: 500; color: var(--text); margin-top: 2px; }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy); color: #64748b;
+    text-align: center; padding: 2rem;
+    font-size: 13px; font-family: var(--mono);
+  }
+  footer span { color: #60a5fa; }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    nav { padding: 0 1rem; }
+    .nav-links { display: none; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .hero { padding: 4rem 1.25rem 3.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">mani@devops:~$</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#resume">Resume</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">Available for new opportunities</div>
+  <h1>Manikandan <span>Chinnadurai</span></h1>
+  <p class="hero-sub">DevOps Engineer &amp; Site Reliability Engineer — building the pipelines, platforms, and observability stacks that keep production running at scale.</p>
+  <div class="hero-metrics">
+    <div class="hero-metric">
+      <span class="num">7+</span>
+      <div class="label">Years in IT</div>
+    </div>
+    <div class="hero-metric">
+      <span class="num">4+</span>
+      <div class="label">Years in DevOps / SRE</div>
+    </div>
+    <div class="hero-metric">
+      <span class="num">99%+</span>
+      <div class="label">SLA Compliance</div>
+    </div>
+    <div class="hero-metric">
+      <span class="num">40%</span>
+      <div class="label">Provisioning Time Cut</div>
+    </div>
+    <div class="hero-metric">
+      <span class="num">10+</span>
+      <div class="label">Microservices Owned</div>
+    </div>
+  </div>
+  <div class="hero-cta">
+    <a href="#resume" class="btn btn-primary">⬇ Download Resume</a>
+    <a href="#contact" class="btn btn-outline">📬 Get in Touch</a>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <div class="section-label">01 / About</div>
+  <h2 class="section-title">Who I Am</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a DevOps and Site Reliability Engineer based in Bangalore, with 7 years of IT experience and a focused 4+ years building the infrastructure, automation, and observability systems that make modern software reliable.</p>
+      <p>At Netcracker Technology Solutions, I own CI/CD pipelines, Kubernetes workloads, cloud infrastructure, and incident response for telecom-grade production systems — where uptime isn't optional.</p>
+      <p>My approach is simple: automate everything that can be automated, observe everything in production, and treat reliability as a shared engineering responsibility — not an afterthought.</p>
+    </div>
+    <div class="about-sidebar">
+      <div class="info-card">
+        <div class="ic-label">Location</div>
+        <div class="ic-value">📍 Bangalore, India</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-label">Current Role</div>
+        <div class="ic-value">L2 DevOps Engineer @ Netcracker</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-label">Email</div>
+        <div class="ic-value"><a href="mailto:manojmani408408@gmail.com">manojmani408408@gmail.com</a></div>
+      </div>
+      <div class="info-card">
+        <div class="ic-label">Phone</div>
+        <div class="ic-value"><a href="tel:+917010639750">+91 70106 39750</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- METRICS BAR -->
+<div class="metrics-bar">
+  <div class="metrics-inner">
+    <div>
+      <div class="m-num">40%</div>
+      <div class="m-label">Docker image size reduction via multi-stage builds</div>
+    </div>
+    <div>
+      <div class="m-num">40%</div>
+      <div class="m-label">Server provisioning time cut with Ansible automation</div>
+    </div>
+    <div>
+      <div class="m-num">95%+</div>
+      <div class="m-label">P1/P2 incidents resolved within SLA</div>
+    </div>
+    <div>
+      <div class="m-num">99%+</div>
+      <div class="m-label">Uptime SLA in telecom-grade production</div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div class="skills-section">
+<section id="skills" class="section">
+  <div class="section-label">02 / Skills</div>
+  <h2 class="section-title">What I Do</h2>
+  <div class="skills-grid">
+
+    <div class="skill-card">
+      <div class="skill-card-icon">🔁</div>
+      <h3>CI/CD &amp; GitOps</h3>
+      <div class="skill-tags">
+        <span class="tag blue">Jenkins</span>
+        <span class="tag blue">ArgoCD</span>
+        <span class="tag blue">GitHub</span>
+        <span class="tag blue">SonarQube</span>
+        <span class="tag blue">Nexus</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">☸️</div>
+      <h3>Containers &amp; Orchestration</h3>
+      <div class="skill-tags">
+        <span class="tag purple">Kubernetes</span>
+        <span class="tag purple">Docker</span>
+        <span class="tag purple">HPA</span>
+        <span class="tag purple">RBAC</span>
+        <span class="tag purple">Helm</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">☁️</div>
+      <h3>Cloud &amp; IaC</h3>
+      <div class="skill-tags">
+        <span class="tag blue">AWS</span>
+        <span class="tag blue">Terraform</span>
+        <span class="tag blue">Ansible</span>
+        <span class="tag blue">OpenStack</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">📊</div>
+      <h3>Observability</h3>
+      <div class="skill-tags">
+        <span class="tag green">Prometheus</span>
+        <span class="tag green">Grafana</span>
+        <span class="tag green">AlertManager</span>
+        <span class="tag green">Kibana</span>
+        <span class="tag green">Filebeat</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">🛡️</div>
+      <h3>Site Reliability</h3>
+      <div class="skill-tags">
+        <span class="tag amber">SLI / SLO / SLA</span>
+        <span class="tag amber">Error Budgets</span>
+        <span class="tag amber">RCA</span>
+        <span class="tag amber">Incident Response</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">⚙️</div>
+      <h3>Scripting &amp; OS</h3>
+      <div class="skill-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Bash</span>
+        <span class="tag">Linux (RHEL/CentOS/Ubuntu)</span>
+        <span class="tag">Windows</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+</div>
+
+<hr class="section-divider"/>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="section">
+  <div class="section-label">03 / Experience</div>
+  <h2 class="section-title">Career Timeline</h2>
+  <div class="timeline">
+
+    <!-- Netcracker -->
+    <div class="tl-item">
+      <div class="tl-dot">🚀</div>
+      <div class="tl-content">
+        <div class="tl-header">
+          <span class="tl-company">Netcracker Technology Solutions</span>
+          <span class="tl-dates">Feb 2022 – Present</span>
+        </div>
+        <div class="tl-role">L2 Engineer — DevOps &amp; Site Reliability</div>
+        <ul class="tl-bullets">
+          <li>Built and maintained <strong>Jenkins CI/CD pipelines</strong> across 10+ microservices, reducing deployment errors and release cycle times.</li>
+          <li>Implemented <strong>GitOps with ArgoCD</strong> — every Kubernetes release is version-controlled, peer-reviewed, and auditable via Git.</li>
+          <li>Managed <strong>Kubernetes workloads</strong> (HPA, RBAC, Secrets, ConfigMaps, liveness/readiness probes) for high-availability production.</li>
+          <li>Provisioned AWS infrastructure using reusable <strong>Terraform modules</strong>, eliminating config drift across dev, staging, and prod.</li>
+          <li>Automated provisioning with <strong>Ansible</strong>, cutting provisioning time by <strong>40%</strong>.</li>
+          <li>Optimized Docker images via <strong>multi-stage Dockerfiles</strong>, reducing image sizes by <strong>40%</strong>.</li>
+          <li>Built <strong>Prometheus / Grafana / AlertManager</strong> observability stack with Kibana dashboards for full metrics, logs &amp; traces.</li>
+          <li>Defined and tracked <strong>SLIs, SLOs, and error budgets</strong> to balance reliability with release velocity.</li>
+          <li>Handled P1/P2 incidents end-to-end — troubleshooting, resolution, RCA — maintaining <strong>99%+ SLA compliance</strong>.</li>
+          <li>Executed <strong>Blue-Green and Canary</strong> deployments with traffic-shift rollback for zero-downtime releases.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Vodafone -->
+    <div class="tl-item">
+      <div class="tl-dot grey">📡</div>
+      <div class="tl-content">
+        <div class="tl-header">
+          <span class="tl-company">Vodafone Idea (via Impact Technologies)</span>
+          <span class="tl-dates">Jan 2021 – Jan 2022</span>
+        </div>
+        <div class="tl-role">Systems Engineer</div>
+        <ul class="tl-bullets">
+          <li>Delivered end-to-end Linux system administration and production support, resolving <strong>95%+ of critical incidents</strong> within SLA.</li>
+          <li>Monitored system health against defined SLOs; proactive capacity checks and package lifecycle management.</li>
+          <li>Supported <strong>Docker</strong> container deployments; troubleshot crash loops, OOM errors, and image pull failures.</li>
+          <li>Managed incident, problem, and change tickets in ServiceNow, Jira, and BMC Remedy following ITIL workflows.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Dell -->
+    <div class="tl-item">
+      <div class="tl-dot grey">💻</div>
+      <div class="tl-content">
+        <div class="tl-header">
+          <span class="tl-company">Dell (via Unique System Payroll)</span>
+          <span class="tl-dates">Jun 2019 – Dec 2020</span>
+        </div>
+        <div class="tl-role">Systems Engineer</div>
+        <ul class="tl-bullets">
+          <li>Managed <strong>Active Directory</strong> users, groups, and RBAC policies; SCCM-based patch management across enterprise fleet.</li>
+          <li>Configured and maintained DNS and DHCP; L1/L2 hardware and software troubleshooting.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- TOOLS -->
+<section id="tools" class="section">
+  <div class="section-label">04 / Tools</div>
+  <h2 class="section-title">Full Tool Stack</h2>
+  <p style="color:var(--text-muted); margin-top: 0.5rem;">Every tool I've worked with in production environments.</p>
+  <div class="tools-grid">
+    <div class="tool-chip"><span class="tool-dot" style="background:#f97316;"></span>Jenkins</div>
+    <div class="tool-chip"><span class="tool-dot" style="background:#2563eb;"></span>ArgoCD</div>
+    <div class="tool-chip"><span class="tool-dot" style="background:#1d4ed8;"></span>GitHub</div>
+    <div class="tool-chip"><span class="tool-dot" style="background:#326ce5;"></span>Kubernetes</div>
+    <div class="tool-chip"><span class="tool-dot" style="background:#2496ed;"></span>Docker</div>
+    <div class="tool-chip"><span class="tool-dot" style="background:#e6522c;"></span>Prometheus</div>
+    <div class="tool-chip"><span class="tool-dot" style="background:#f46800;"></span>Grafana</div>
+    <div class="tool-chip"><span class="tool-dot" style="background:#005571;"></span>Kibana</div>
+    <div class="tool-chip"><span class="tool-dot" style="background:#00bfb3;"></span>Filebeat</div>
+    <div class="tool-chip"><span class="tool-dot" style="background:#7b42bc;"></span>Terraform</div>
+    <div class="tool-chip"><span class="tool-dot" style="background:#e00;"></span>Ansible</div>
+    <div class="tool-chip"><span class="tool-dot" style="background:#ff9900;"></span>AWS</div>
+    <div class="tool-chip"><span class="tool-dot" style="background:#3776ab;"></span>Python</div>
+    <div class="tool-chip"><span class="tool-dot" style="background:#4eaa25;"></span>Bash</div>
+    <div class="tool-chip"><span class="tool-dot" style="background:#0052cc;"></span>Jira</div>
+    <div class="tool-chip"><span class="tool-dot" style="background:#81c341;"></span>SonarQube</div>
+    <div class="tool-chip"><span class="tool-dot" style="background:#00bcd4;"></span>Nexus</div>
+    <div class="tool-chip"><span class="tool-dot" style="background:#62b0e8;"></span>ServiceNow</div>
+    <div class="tool-chip"><span class="tool-dot" style="background:#e34f26;"></span>RHEL / Linux</div>
+    <div class="tool-chip"><span class="tool-dot" style="background:#0078d4;"></span>Windows Server</div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- RESUME DOWNLOAD -->
+<div class="resume-section">
+<section id="resume" class="section">
+  <div class="section-label">05 / Resume</div>
+  <h2 class="section-title">Download My Resume</h2>
+  <p style="color:var(--text-muted); margin-top: 0.5rem;">Three targeted versions — each optimized for a different role focus. Pick the one matching your open position.</p>
+  <div class="resume-cards">
+
+    <div class="resume-card">
+      <div class="rc-icon">🛡️</div>
+      <div class="rc-badge">SRE Focus</div>
+      <h3>Site Reliability Engineer</h3>
+      <p>Leads with SLI/SLO/SLA, error budgets, observability stack, and incident response. Best for SRE and reliability-titled roles.</p>
+      <a href="Manikandan_Chinnadurai_SRE.docx" download class="btn btn-primary" style="margin-top: auto; font-size: 13px;">⬇ Download SRE Resume</a>
+    </div>
+
+    <div class="resume-card">
+      <div class="rc-icon">☁️</div>
+      <div class="rc-badge">DevOps Focus</div>
+      <h3>DevOps / Cloud Engineer</h3>
+      <p>Leads with CI/CD pipelines, AWS infrastructure, and Terraform IaC. Best for DevOps Engineer and Cloud Engineer postings.</p>
+      <a href="Manikandan_Chinnadurai_DevOps_Cloud.docx" download class="btn btn-primary" style="margin-top: auto; font-size: 13px;">⬇ Download DevOps Resume</a>
+    </div>
+
+    <div class="resume-card">
+      <div class="rc-icon">⚙️</div>
+      <div class="rc-badge">Platform Focus</div>
+      <h3>Platform Engineer</h3>
+      <p>Leads with Kubernetes, GitOps, and IaC as a self-service platform story. Best for Platform and Infrastructure Engineering roles.</p>
+      <a href="Manikandan_Chinnadurai_Platform_Engineering.docx" download class="btn btn-primary" style="margin-top: auto; font-size: 13px;">⬇ Download Platform Resume</a>
+    </div>
+
+  </div>
+</section>
+</div>
+
+<hr class="section-divider"/>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <div class="section-label">06 / Contact</div>
+  <h2 class="section-title">Let's Talk</h2>
+  <p style="color:var(--text-muted); margin-top: 0.5rem; margin-bottom: 1.5rem;">Open to DevOps, SRE, and Platform Engineering opportunities in Bangalore and remote. Feel free to reach out directly.</p>
+  <div class="contact-grid">
+    <a href="mailto:manojmani408408@gmail.com" class="contact-card">
+      <div class="contact-icon">📧</div>
+      <div class="contact-info">
+        <div class="ci-label">Email</div>
+        <div class="ci-value">manojmani408408@gmail.com</div>
+      </div>
+    </a>
+    <a href="tel:+917010639750" class="contact-card">
+      <div class="contact-icon">📞</div>
+      <div class="contact-info">
+        <div class="ci-label">Phone</div>
+        <div class="ci-value">+91 70106 39750</div>
+      </div>
+    </a>
+    <a href="https://linkedin.com/in/manikandan408" target="_blank" class="contact-card">
+      <div class="contact-icon">💼</div>
+      <div class="contact-info">
+        <div class="ci-label">LinkedIn</div>
+        <div class="ci-value">linkedin.com/in/manikandan408</div>
+      </div>
+    </a>
+    <a href="https://github.com/manikandan408" target="_blank" class="contact-card">
+      <div class="contact-icon">🐙</div>
+      <div class="contact-info">
+        <div class="ci-label">GitHub</div>
+        <div class="ci-value">github.com/manikandan408</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Built by <span>Manikandan Chinnadurai</span> · DevOps &amp; SRE Engineer · Bangalore, India · 2025</p>
+  <p style="margin-top: 6px; font-size: 11px; opacity: 0.5;">mani@devops:~$ echo "Let's build something reliable."</p>
+</footer>
+
+</body>
+</html>
